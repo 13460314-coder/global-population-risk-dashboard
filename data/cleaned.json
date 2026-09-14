@@ -1,0 +1,37 @@
+{
+  "source": "UN World Population Prospects 2024",
+  "population": [
+    {
+      "year": 2024,
+      "population_billion": 8.2
+    },
+    {
+      "year": 2030,
+      "population_billion": 8.5
+    },
+    {
+      "year": 2050,
+      "population_billion": 9.6
+    },
+    {
+      "year": 2100,
+      "population_billion": 10.2
+    }
+  ],
+  "average_population_billion": 9.12,
+  "growth_rates": [
+    {
+      "period": "2024-2030",
+      "growth_rate_percent": 3.66
+    },
+    {
+      "period": "2030-2050",
+      "growth_rate_percent": 12.94
+    },
+    {
+      "period": "2050-2100",
+      "growth_rate_percent": 6.25
+    }
+  ],
+  "cagr_2024_2100_percent": 0.288
+}
