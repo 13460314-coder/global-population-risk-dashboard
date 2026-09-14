@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Population & Geopolitical Risk Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans TC", sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 15px;
+      font-size: 2.2rem;
+    }
+
+    header p {
+      max-width: 800px;
+      margin: 8px auto;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    section {
+      background: white;
+      padding: 28px;
+      margin-bottom: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+      border-left: 5px solid #2563eb;
+      padding-left: 12px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 22px 0;
+    }
+
+    .card {
+      background: #eff6ff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .card strong {
+      display: block;
+      font-size: 1.8rem;
+      color: #1d4ed8;
+    }
+
+    .stats {
+      background: #f9fafb;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    canvas {
+      margin-top: 25px;
+      max-height: 420px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #111827;
+      color: white;
+    }
+
+    .fact {
+      border-left: 5px solid #16a34a;
+      padding: 15px;
+      background: #f0fdf4;
+      margin: 15px 0;
+    }
+
+    .inference {
+      border-left: 5px solid #f59e0b;
+      padding: 15px;
+      background: #fffbeb;
+      margin: 15px 0;
+    }
+
+    .source {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #111827;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      section {
+        padding: 18px;
+      }
+
+      table {
+        font-size: 0.88rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding: 12px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Global Population & Geopolitical Risk Dashboard</h1>
+
+  <p>
+    全球人口仍將持續成長，但人口結構與地緣政治風險將共同影響未來的經濟、能源與國際安全。
+  </p>
+
+  <p>
+    作者：13460314
+  </p>
+</header>
+
+<main>
+
+  <section>
+    <h2>世界人口預測</h2>
+
+    <p>
+      根據 United Nations World Population Prospects 2024 中位推估情境，
+      世界人口將由 2024 年約 82 億人增加至 2050 年約 96 億人，
+      並於本世紀後期達到高峰後，在 2100 年約為 102 億人。
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <span>2024</span>
+        <strong>8.2</strong>
+        billion
+      </div>
+
+      <div class="card">
+        <span>2030</span>
+        <strong>8.5</strong>
+        billion
+      </div>
+
+      <div class="card">
+        <span>2050</span>
+        <strong>9.6</strong>
+        billion
+      </div>
+
+      <div class="card">
+        <span>2100</span>
+        <strong>10.2</strong>
+        billion
+      </div>
+    </div>
+
+    <canvas id="populationChart"></canvas>
+
+    <div class="stats" id="stats">
+      正在讀取 Python 處理後的 JSON 資料……
+    </div>
+
+    <p class="source">
+      資料來源：United Nations, World Population Prospects 2024.
+    </p>
+  </section>
+
+
+  <section>
+    <h2>Iran Risk Matrix</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>風險因子</th>
+          <th>機率</th>
+          <th>影響程度</th>
+          <th>資料來源</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>荷姆茲海峽與能源運輸中斷</td>
+          <td>高</td>
+          <td>高</td>
+          <td>Reuters</td>
+        </tr>
+
+        <tr>
+          <td>伊朗與美國／區域國家軍事衝突升級</td>
+          <td>高</td>
+          <td>高</td>
+          <td>Reuters</td>
+        </tr>
+
+        <tr>
+          <td>國際制裁與伊朗經濟壓力</td>
+          <td>高</td>
+          <td>中至高</td>
+          <td>Reuters / U.S. sanctions reporting</td>
+        </tr>
+
+        <tr>
+          <td>伊朗盟友與代理勢力造成區域擴散風險</td>
+          <td>中至高</td>
+          <td>高</td>
+          <td>Reuters</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section>
+    <h2>事實資料與推論</h2>
+
+    <div class="fact">
+      <strong>事實資料：</strong>
+      2026 年中東安全局勢持續緊張，荷姆茲海峽航運量下降，
+      能源運輸與全球油價受到影響；同時美國持續對伊朗相關網絡實施制裁。
+    </div>
+
+    <div class="inference">
+      <strong>分析推論：</strong>
+      若能源運輸中斷持續，可能進一步推升全球能源成本與通膨壓力，
+      並增加國際金融市場與供應鏈的不確定性。
+      此部分屬於根據既有事實做出的風險判斷，而非已經發生的確定結果。
+    </div>
+  </section>
+
+
+  <section>
+    <h2>方法論</h2>
+
+    <h3>AI 使用方式</h3>
+
+    <p>
+      本專題使用 AI 協助整理網站架構、程式撰寫、風險因子分類與文字摘要，
+      但人口數據與地緣政治事實均另外查證來源。
+    </p>
+
+    <h3>資料驗證方式</h3>
+
+    <p>
+      人口資料以 United Nations World Population Prospects 2024
+      官方資料為主要依據，而非直接採用 AI 回答。
+      若不同 AI 或網站提供不同數字，優先採用聯合國官方發布版本，
+      並確認年份、預測情境與單位是否一致。
+    </p>
+
+    <h3>避免 AI 幻覺與偏誤</h3>
+
+    <p>
+      地緣政治議題容易受到資料時間點與立場影響，因此分析時區分
+      「可驗證事實」與「推論」，並以可靠新聞及官方資料交叉確認。
+      AI 產生的敘述不直接視為事實來源。
+    </p>
+  </section>
+
+</main>
+
+
+<footer>
+  Global Population & Geopolitical Risk Dashboard
+</footer>
+
+
+<script>
+  const years = [2024, 2030, 2050, 2100];
+  const population = [8.2, 8.5, 9.6, 10.2];
+
+  new Chart(document.getElementById("populationChart"), {
+    type: "line",
+
+    data: {
+      labels: years,
+
+      datasets: [{
+        label: "World Population (Billion)",
+        data: population,
+        borderWidth: 3,
+        tension: 0.25
+      }]
+    },
+
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+
+      plugins: {
+        title: {
+          display: true,
+          text: "World Population Projection"
+        }
+      },
+
+      scales: {
+        y: {
+          beginAtZero: false,
+          title: {
+            display: true,
+            text: "Population (Billion)"
+          }
+        }
+      }
+    }
+  });
+
+
+  fetch("data/cleaned.json")
+    .then(response => response.json())
+    .then(data => {
+
+      const growth = data.growth_rates
+        .map(item =>
+          `${item.period} 成長率：${item.growth_rate_percent}%`
+        )
+        .join("<br>");
+
+      document.getElementById("stats").innerHTML =
+        `<strong>Python 資料處理結果</strong><br><br>
+        四個觀察年份平均人口：
+        ${data.average_population_billion} billion<br><br>
+        ${growth}<br><br>
+        2024–2100 CAGR：
+        ${data.cagr_2024_2100_percent}%`;
+
+    })
+
+    .catch(error => {
+      document.getElementById("stats").innerHTML =
+        "無法讀取 cleaned.json";
+    });
+</script>
+
+</body>
+</html>
